@@ -2,13 +2,17 @@
   (:use clojure.java.io)
   (:require [marcgrep.protocols.marc-destination :as marc-destination])
   (:refer-clojure :exclude [next flush])
-  (:import [org.marc4j.marc Record VariableField DataField ControlField Subfield]
+  (:import [org.marc4j.marc Record VariableField DataField ControlField Subfield Leader]
            [java.io BufferedWriter FileOutputStream]))
 
 
 (def ms-between-flushes 10000)
 
 (defn write-pretty-record [^Record record ^BufferedWriter out included-fields]
+  (let [^Leader lead (.getLeader record)]
+    (do (.write out "000 " )
+        (.write out (.marshal lead))
+        (.write out "\r\n")))
   (doseq [^VariableField f (.getVariableFields record)]
     (let [tag (.getTag f)]
       (when (or (not included-fields)
