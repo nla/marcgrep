@@ -14,9 +14,9 @@ chmod a+x .nla-deploy/lein
 
 export PATH="./.nla-deploy:$PATH"
 
-#lein deps
-#lein ring uberwar
-lein uberjar
-echo "built jar"
+lein deps
+lein ring uberwar
+#lein uberjar
+echo "built war"
 
-unzip -d "${staging_dir}/ROOT" "target/marcgrep-${marcgrep_version}-standalone.jar"
+unzip -d "${staging_dir}/ROOT" "target/marcgrep-${marcgrep_version}-standalone.war"
