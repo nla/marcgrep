@@ -16,7 +16,7 @@ export PATH="./.nla-deploy:$PATH"
 
 #lein deps
 #lein ring uberwar
-lein uberwar
-echo "built war"
+lein uberjar
+echo "built jar"
 
-unzip -d "${staging_dir}/ROOT" "marcgrep-src/target/marcgrep-${marcgrep_version}-standalone.war"
+unzip -d "${staging_dir}/ROOT" "marcgrep-src/target/marcgrep-${marcgrep_version}-standalone.jar"
