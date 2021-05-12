@@ -19,4 +19,4 @@ export PATH="./.nla-deploy:$PATH"
 lein uberjar
 echo "built jar"
 
-unzip -d "${staging_dir}/ROOT" "marcgrep-src/target/marcgrep-${marcgrep_version}-standalone.jar"
+unzip -d "${staging_dir}/ROOT" "target/marcgrep-${marcgrep_version}-standalone.jar"
