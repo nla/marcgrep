@@ -6,8 +6,7 @@
                  [compojure "0.6.4"]
                  [ring/ring-servlet "0.3.10"]
                  [org.tigris/marc4j "2.4"]
-                 [org.apache.lucene/lucene-core "3.5.0"]
-                 [yogthos/config "1.1.7"]]
+                 [org.apache.lucene/lucene-core "3.5.0"]]
   :profiles {:prod {:resource-paths ["config/prod"]}
              :test {:resource-paths ["config/test"]}}
   :plugins [[lein-ring "0.8.8"]]
