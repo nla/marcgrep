@@ -23,6 +23,6 @@
 
                     {:description "Authority data"
                      :driver marcgrep.sources.marc-file
-                     :marc-files ["/export/home/voyager/marcexport/test/auth-export/authority-full.mrc"]}
+                     :marc-files ["/export/home/voyager/marcexport/prod/auth-export/authority-full.mrc"]}
                     ]
- }
+}

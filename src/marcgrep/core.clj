@@ -555,7 +555,7 @@ running as many jobs as we're allowed, wait for an existing run to finish."
           (println "Loading config.clj from classpath")
           (load-config (reader stream))))
 
-      (throw (Exception. (str "Couldn't find MARCgrep's config.clj file"
+      (throw (Exception. (str "Couldn't find MARCgrep's config.clj.notathing file"
                               " in the current directory or on the"
                               " classpath!"))))
 
