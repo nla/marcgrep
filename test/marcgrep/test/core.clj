@@ -258,7 +258,7 @@
         str-match-2 "001 222222\r\n\r\n"
         writer-3 (StringWriter.)
         record-3 (marc-record {"001" "333333"} [{:tag "100" :subfields [[\a "and test again"]]}])
-        str-match-3 "001 222222\r\n\r\n"]
+        str-match-3 "000 00000nam a2200000 a 4500\r\n\r\n"]
     (do (text/write-pretty-record record-1 writer-1 nil)
         (is (= str-match-1 (.toString writer-1)))
         (text/write-pretty-record record-2 writer-2 #{"001"})
