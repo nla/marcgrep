@@ -248,20 +248,26 @@
              :on test-dataset
              :does-not-match ["12345"]))
 
+(deftest write-pretty-record-full
+  "Test writing pretty records: can write complete record including Leader as 000"
+  (let [writer (StringWriter.)
+        rec (marc-record {"001" "111111"} [{:tag "245" :subfields [[\a "test"]]}])
+        match-str "000 00000nam a2200000 a 4500\r\n001 111111\r\n245     $a test\r\n\r\n"]
+    (do (text/write-pretty-record rec writer nil)
+        (is (= match-str (.toString writer))))))
+
+(deftest write-pretty-record-limited
+  "Test writing pretty records: limit output to given fields"
+  (let [writer (StringWriter.)
+        rec (marc-record {"001" "222222"} [{:tag "100" :subfields [[\a "another test"]]}])
+        match-str "001 222222\r\n\r\n"]
+    (do (text/write-pretty-record rec writer #{"001"})
+        (is (= match-str (.toString writer))))))
+
 (deftest write-pretty-record-leader
-  "Test writing pretty records: can write complete record, limit output to given fields, includes Leader as 000"
-  (let [writer-1 (StringWriter.)
-        record-1 (marc-record {"001" "111111"} [{:tag "245" :subfields [[\a "test"]]}])
-        str-match-1 "000 00000nam a2200000 a 4500\r\n001 111111\r\n245     $a test\r\n\r\n"
-        writer-2 (StringWriter.)
-        record-2 (marc-record {"001" "222222"} [{:tag "100" :subfields [[\a "another test"]]}])
-        str-match-2 "001 222222\r\n\r\n"
-        writer-3 (StringWriter.)
-        record-3 (marc-record {"001" "333333"} [{:tag "100" :subfields [[\a "and test again"]]}])
-        str-match-3 "000 00000nam a2200000 a 4500\r\n\r\n"]
-    (do (text/write-pretty-record record-1 writer-1 nil)
-        (is (= str-match-1 (.toString writer-1)))
-        (text/write-pretty-record record-2 writer-2 #{"001"})
-        (is (= str-match-2 (.toString writer-2)))
-        (text/write-pretty-record record-3 writer-3 #{"000"})
-        (is (= str-match-3 (.toString writer-3))))))
+  "Test writing pretty records: can limit output to just the Leader as 000"
+  (let [writer (StringWriter.)
+        rec (marc-record {"001" "333333"} [{:tag "100" :subfields [[\a "and test again"]]}])
+        match-str "000 00000nam a2200000 a 4500\r\n\r\n"]
+    (do (text/write-pretty-record rec writer #{"000"})
+        (is (= match-str (.toString writer))))))
