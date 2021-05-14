@@ -12,9 +12,9 @@
   (when (or (not included-fields)
             (included-fields "000"))
     (let [^Leader lead (.getLeader record)]
-      (do (.write out "000 " )
-          (.write out (.marshal lead))
-          (.write out "\r\n"))))
+      (.write out "000 " )
+      (.write out (.marshal lead))
+      (.write out "\r\n")))
   (doseq [^VariableField f (.getVariableFields record)]
     (let [tag (.getTag f)]
       (when (or (not included-fields)
@@ -88,5 +88,4 @@
                      :label "Limit to fields"
                      :caption "Comma separated.  Leave blank for all fields"
                      :type :text}]})
-
 
