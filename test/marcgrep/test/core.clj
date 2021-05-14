@@ -253,8 +253,8 @@
   (let [writer (StringWriter.)
         rec (marc-record {"001" "111111"} [{:tag "245" :subfields [[\a "test"]]}])
         match-str "000 00000nam a2200000 a 4500\r\n001 111111\r\n245     $a test\r\n\r\n"]
-    (do (text/write-pretty-record rec writer nil)
-        (is (= match-str (.toString writer))))))
+    (text/write-pretty-record rec writer nil)
+    (is (= match-str (.toString writer)))))
 
 (deftest write-pretty-record-limited
   "Test writing pretty records: limit output to given fields"
