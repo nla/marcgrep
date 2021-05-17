@@ -11,4 +11,4 @@ lein deps
 lein with-profile ${env} ring uberwar
 echo "built war"
 
-unzip -d "${staging_dir}/ROOT" "target/marcgrep-.*-standalone.war"
+unzip -d "${staging_dir}/ROOT" "target/marcgrep-*-standalone.war"
