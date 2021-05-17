@@ -3,8 +3,10 @@
   (:use marcgrep.test.test-utils
         clojure.test)
   (:require marcgrep.core
-            marcgrep.config)
-  (:import [org.marc4j.marc MarcFactory]))
+            marcgrep.config
+            [marcgrep.destinations.plaintext :as text])
+  (:import [org.marc4j.marc MarcFactory]
+           (java.io StringWriter)))
 
 
 (def test-dataset
@@ -245,3 +247,27 @@
               :value true}
              :on test-dataset
              :does-not-match ["12345"]))
+
+(deftest write-pretty-record-full
+  "Test writing pretty records: can write complete record including Leader as 000"
+  (let [writer (StringWriter.)
+        rec (marc-record {"001" "111111"} [{:tag "245" :subfields [[\a "test"]]}])
+        match-str "000 00000nam a2200000 a 4500\r\n001 111111\r\n245     $a test\r\n\r\n"]
+    (text/write-pretty-record rec writer nil)
+    (is (= match-str (.toString writer)))))
+
+(deftest write-pretty-record-limited
+  "Test writing pretty records: limit output to given fields"
+  (let [writer (StringWriter.)
+        rec (marc-record {"001" "222222"} [{:tag "100" :subfields [[\a "another test"]]}])
+        match-str "001 222222\r\n\r\n"]
+    (text/write-pretty-record rec writer #{"001"})
+    (is (= match-str (.toString writer)))))
+
+(deftest write-pretty-record-leader
+  "Test writing pretty records: can limit output to just the Leader as 000"
+  (let [writer (StringWriter.)
+        rec (marc-record {"001" "333333"} [{:tag "100" :subfields [[\a "and test again"]]}])
+        match-str "000 00000nam a2200000 a 4500\r\n\r\n"]
+    (text/write-pretty-record rec writer #{"000"})
+    (is (= match-str (.toString writer)))))
