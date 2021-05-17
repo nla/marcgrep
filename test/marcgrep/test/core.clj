@@ -261,13 +261,13 @@
   (let [writer (StringWriter.)
         rec (marc-record {"001" "222222"} [{:tag "100" :subfields [[\a "another test"]]}])
         match-str "001 222222\r\n\r\n"]
-    (do (text/write-pretty-record rec writer #{"001"})
-        (is (= match-str (.toString writer))))))
+    (text/write-pretty-record rec writer #{"001"})
+    (is (= match-str (.toString writer)))))
 
 (deftest write-pretty-record-leader
   "Test writing pretty records: can limit output to just the Leader as 000"
   (let [writer (StringWriter.)
         rec (marc-record {"001" "333333"} [{:tag "100" :subfields [[\a "and test again"]]}])
         match-str "000 00000nam a2200000 a 4500\r\n\r\n"]
-    (do (text/write-pretty-record rec writer #{"000"})
-        (is (= match-str (.toString writer))))))
+    (text/write-pretty-record rec writer #{"000"})
+    (is (= match-str (.toString writer)))))

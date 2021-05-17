@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-staging_dir=$1
-env=$2
+staging_dir="$1"
+env="$2"
 marcgrep_version=1.0.4
 export PATH="./.nla-deploy:$PATH"
 
