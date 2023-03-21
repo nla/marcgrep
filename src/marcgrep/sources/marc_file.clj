@@ -5,17 +5,17 @@
             [marcgrep.sources.util :as util]
             [marcgrep.protocols.marc-source :as marc-source])
   (:use clojure.java.io)
-  (:import [org.marc4j MarcStreamReader]
+  (:import [org.marc4j MarcPermissiveStreamReader]
            [java.io FileInputStream]
            [org.marc4j.marc Record VariableField]
            [java.io BufferedReader ByteArrayInputStream]))
 
 
 (deftype MARCFile [^String filename
-                   ^{:unsynchronized-mutable true :tag MarcStreamReader} rdr]
+                   ^{:unsynchronized-mutable true :tag MarcPermissiveStreamReader} rdr]
   marc-source/MarcSource
   (init [this]
-    (set! rdr (MarcStreamReader. (FileInputStream. filename))))
+    (set! rdr (MarcPermissiveStreamReader. (FileInputStream. filename) true true)))
   (next [this]
     (when (.hasNext rdr)
       (.next rdr)))
