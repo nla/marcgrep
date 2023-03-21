@@ -1,6 +1,6 @@
-{:output-dir "/var/marcgrep-output"
+{:output-dir "/apps/data/marcgrep-cyan"
 
- :state-file "/var/tmp/marcgrep.dat"
+ :state-file "/apps/data/marcgrep-cyan/marcgrep.dat"
 
  ;; Note: the total number of active threads will be (roughly) these two values multiplied.
  :worker-threads 4
