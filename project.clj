@@ -8,7 +8,8 @@
                  [org.tigris/marc4j "2.4"]
                  [org.apache.lucene/lucene-core "3.5.0"]]
   :profiles {:prod {:resource-paths ["config/prod"]}
-             :test {:resource-paths ["config/test"]}}
+             :test {:resource-paths ["config/test"]}
+             :cyan {:resource-paths ["config/cyan"]}}
   :plugins [[lein-ring "0.8.8"]]
   :warn-on-reflection false
   :dev-dependencies [[swank-clojure/swank-clojure "1.3.2"]]
