@@ -1,0 +1,4 @@
+.idea/
+marcgrep.dat
+resources/config.clj
+target/
