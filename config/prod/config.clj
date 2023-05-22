@@ -1,6 +1,6 @@
-{:output-dir "/var/marcgrep-output"
+{:output-dir "/apps/data/marcgrep"
 
- :state-file "/var/tmp/marcgrep.dat"
+ :state-file "/apps/data/marcgrep/marcgrep.dat"
 
  ;; Note: the total number of active threads will be (roughly) these two values multiplied.
  :worker-threads 4
@@ -8,21 +8,12 @@
 
  :marc-destination-list [marcgrep.destinations.marcfile marcgrep.destinations.plaintext]
 
- :marc-source-list [{:description "Bibliographic data"
-                     :driver marcgrep.sources.nla
-                     :index-path "/var/local/solr/data/index"
-                     :stored-field "fullrecord"
-                     :parser-threads 3
-                     :batch-size 64}
-
-                    {:description "Holdings data"
-                     :driver marcgrep.sources.voyager
-                     :marc-files [{:dir "/var/local/marcgrep"
-                                   :pattern #"holdings.*mrc.*$"}]
-                     :voyager-deletes-file "/var/local/marcgrep/deleted.mfhd.marc"}
+ :marc-source-list [{:description "Bibliographic and Holdings data"
+                     :driver marcgrep.sources.marc-file
+                     :marc-files ["/apps/data/folio-cache/MARC_BIB.mrc"]}
 
                     {:description "Authority data"
                      :driver marcgrep.sources.marc-file
-                     :marc-files ["/export/home/voyager/marcexport/prod/auth-export/authority-full.mrc"]}
+                     :marc-files ["/apps/data/folio-cache/MARC_AUTHORITY.mrc"]}
                     ]
 }
